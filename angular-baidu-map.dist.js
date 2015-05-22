@@ -94,6 +94,7 @@
     };
 
     function link(scope, element, attrs, controller) {
+      element.css('display', 'block');
       baiduMapApi.then(function (BMap) {
         var map = new BMap.Map(element[0]);
         controller.init(map);
@@ -117,7 +118,7 @@
 
       var center = $scope.center;
 
-      map.centerAndZoom(new BMap.Point(center.lat, center.lng), 11);
+      map.centerAndZoom(new BMap.Point(center.lng, center.lat), 11);
 
       map.addEventListener('dragend', function (type, target) {
         var center = map.getCenter();
@@ -126,7 +127,7 @@
       });
 
       $scope.$watch('center', function (newVal, oldVal) {
-        var point = new BMap.Point(newVal.lat, newVal.lng);
+        var point = new BMap.Point(newVal.lng, newVal.lat);
         map.panTo(point);
       }, true);
     }
