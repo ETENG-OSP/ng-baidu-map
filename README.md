@@ -1,7 +1,7 @@
 百度地图 for Angular
 ==========================
 
-这个模块包含了使用百度地图的 Directive。
+这个模块包含了使用百度地图的 directive。
 
 这个模块自动管理百度地图 API 的加载，无需引入百度地图的 loader。
 
@@ -13,7 +13,7 @@
 使用 bower 安装
 
 ```bash
-bower install ng-baidu-map
+bower install ng-baidu-map --save
 ```
 
 在自己的模块中加入依赖
@@ -42,7 +42,7 @@ function config(baiduMapApiProvider) {
 
 参数：
 
-* _center_: 地图的中心点坐标，使用双向绑定方式与外界的数据进行交互
+* __center__: 地图的中心点坐标，使用双向绑定方式与外界的数据进行交互
 
 例子：
 
