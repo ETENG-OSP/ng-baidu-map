@@ -1,4 +1,4 @@
-百度地图 for Angular
+百度地图 for AngularJS
 ==========================
 
 这个模块包含了使用百度地图的 directive。
@@ -13,7 +13,7 @@
 使用 bower 安装
 
 ```bash
-bower install ng-baidu-map --save
+$ bower install ng-baidu-map --save
 ```
 
 在自己的模块中加入依赖
