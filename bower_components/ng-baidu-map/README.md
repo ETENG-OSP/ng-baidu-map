@@ -13,7 +13,7 @@
 使用 bower 安装
 
 ```bash
-bower install ng-baidu-map --save
+$ bower install ng-baidu-map --save
 ```
 
 在自己的模块中加入依赖

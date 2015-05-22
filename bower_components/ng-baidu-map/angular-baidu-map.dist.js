@@ -94,7 +94,7 @@
     };
 
     function link(scope, element, attrs, controller) {
-      element.css('display', 'inline-block');
+      element.css('display', 'block');
       baiduMapApi.then(function (BMap) {
         var map = new BMap.Map(element[0]);
         controller.init(map);

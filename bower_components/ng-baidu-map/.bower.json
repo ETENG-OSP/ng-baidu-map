@@ -13,11 +13,11 @@
     "angular": "~1.3.15"
   },
   "homepage": "https://github.com/gengen1988/ng-baidu-map",
-  "_release": "da351f9d48",
+  "_release": "da3e783e5f",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "da351f9d48a24c2d9aefe28456832a3adf9b3542"
+    "commit": "da3e783e5f49c3c7ad4ce0762d3d750d8246ce03"
   },
   "_source": "git://github.com/gengen1988/ng-baidu-map.git",
   "_target": "*",
