@@ -5,11 +5,17 @@
     <title>Ng-baidu-map by gengen1988</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <style>
+      .map {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
   </head>
-  <body>
+  <body ng-app="app">
     <section class="page-header">
       <h1 class="project-name">Ng-baidu-map</h1>
       <h2 class="project-tagline">百度地图 for AngularJS</h2>
@@ -27,6 +33,31 @@
 <p>这个模块自动管理百度地图 API 的加载，无需引入百度地图的 loader。</p>
 
 <p>支持双向绑定。</p>
+
+<table class="main-container" ng-init="point = { lng: 116.404, lat: 39.915 }">
+  <thead>
+    <th>地图演示</th>
+    <th>键</th>
+    <th>值</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">
+        <baidu-map class="map" center="point"></baidu-map>
+      </td>
+      <td>lat</td>
+      <td>
+        <input type="number" ng-model="point.lat" >
+      </td>
+    </tr>
+    <tr>
+      <td>lng</td>
+      <td>
+        <input type="number" ng-model="point.lng" >
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <h2>
 <a id="安装方法" class="anchor" href="#%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>安装方法</h2>
@@ -79,8 +110,11 @@
     </section>
 
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/ng-baidu-map/angular-baidu-map.dist.js"></script>
     <script>
-      angular.module('app', ['ngBaiduMap']).config();
+      angular.module('app', ['ngBaiduMap']).config(function (baiduMapApiProvider) {
+        baiduMapApiProvider.accessKey('Ivgr94UBpL6zkp4lUZRtQCys');
+      });
     </script>
 
   </body>
