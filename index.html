@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+
+  <!-- bower:js -->
+  <script src="bower_components/angular/angular.js"></script>
+  <!-- endbower -->
+
+  <script src="angular-baidu-map.js"></script>
+  <style>
+    .map {
+      display: block;
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body ng-app="app">
+
+  <div ng-init="point = { lat: 121.491, lng: 31.233 }">
+
+    <div>
+      <span>lat:</span>
+      <span ng-bind="point.lat"></span>
+      <input type="number" ng-model="point.lat" />
+    </div>
+
+    <div>
+      <span>lng:</span>
+      <span ng-bind="point.lng"></span>
+      <input type="number" ng-model="point.lng" />
+    </div>
+
+    <baidu-map class="map" center="point"></baidu-map>
+
+  </div>
+
+  <script>
+    angular.module('app', ['ngBaiduMap']).config(config);
+
+    function config(baiduMapApiProvider) {
+      baiduMapApiProvider.accessKey('Ivgr94UBpL6zkp4lUZRtQCys');
+    }
+  </script>
+</body>
+</html>
