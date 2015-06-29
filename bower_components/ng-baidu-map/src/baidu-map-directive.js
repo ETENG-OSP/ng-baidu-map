@@ -18,6 +18,7 @@ function BaiduMapDirective($q, baiduMapApi) {
 
   function link(scope, element, attrs) {
     var container = element.children();
+    element.css('display', 'block');
     angular.element(container[1]).css('display', 'none');
     angular.element(container[0]).css({
       'min-height': '100px',

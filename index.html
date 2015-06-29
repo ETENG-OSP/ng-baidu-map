@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
     <style>
       .map {
-        width: 200px;
-        height: 200px;
+        width: 320px;
+        height: 240px;
       }
     </style>
     <script>
@@ -53,7 +53,12 @@ var _hmt = _hmt || [];
   <tbody>
     <tr>
       <td rowspan="2">
-        <baidu-map class="map" center="point"></baidu-map>
+        <baidu-map class="map" center="point">
+          <marker latlng="point">
+            <h2>提示</h2>
+            <p>这是北京天安门，<a target="_blank" href="https://en.wikipedia.org/wiki/Mao_Zedong">去看毛爷爷</a></p>
+          </marker>
+        </baidu-map>
       </td>
       <td>lat</td>
       <td>
