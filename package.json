@@ -8,8 +8,8 @@
     "pack": "browserify index.js > dist/baidu-map.js",
     "annotate": "ng-annotate -a dist/baidu-map.js > dist/baidu-map.annotated.js",
     "minify": "uglifyjs dist/baidu-map.annotated.js -c -m > dist/baidu-map.min.js",
-    "build": "npm run pack && npm run annotate && npm run minify && npm run bump",
-    "bump": "npm version bump && bower version bump"
+    "build": "npm run pack && npm run annotate && npm run minify",
+    "bump": "npm version patch && bower version patch"
   },
   "repository": {
     "type": "git",

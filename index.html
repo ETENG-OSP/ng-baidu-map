@@ -8,12 +8,12 @@
   <script src="bower_components/angular/angular.js"></script>
   <!-- endbower -->
 
-  <script src="angular-baidu-map.js"></script>
+  <script src="dist/baidu-map.js"></script>
   <style>
     .map {
       display: block;
-      width: 200px;
-      height: 200px;
+      width: 10px;
+      height: 20px;
     }
   </style>
 </head>
@@ -33,7 +33,12 @@
       <input type="number" ng-model="point.lng" />
     </div>
 
-    <baidu-map class="map" center="point"></baidu-map>
+    <baidu-map class="map" center="point">
+      <marker latlng="point" map-click="test()">
+        <h1>title</h1>
+        <p>你好世界</p>
+      </marker>
+    </baidu-map>
 
   </div>
 

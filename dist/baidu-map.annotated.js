@@ -1,18 +1,18 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/*
+/**
  * 用于配置加载地图的方法
  */
-function baiduMapApiProvider() {
-
-  this.$get = $get;
-  this.accessKey = accessKey;
-  this.version = version;
-  this.options = {
-    version: '2.0'
-  };
+function ApiProvider() {
 
   $get.$inject = ["baiduMapScriptLoader"];
-  return this;
+  return {
+    $get: $get,
+    accessKey: accessKey,
+    version: version,
+    options: {
+      version: '2.0'
+    }
+  };
 
   function accessKey(_accessKey) {
     this.options.accessKey = _accessKey;
@@ -24,78 +24,116 @@ function baiduMapApiProvider() {
     return this;
   }
 
-  // @ngInject
+  /**
+   * @ngInject
+   */
   function $get(baiduMapScriptLoader) {
     return baiduMapScriptLoader(this.options.version, this.options.accessKey);
   }
 }
 
-module.exports = baiduMapApiProvider;
+module.exports = ApiProvider;
 
 },{}],2:[function(require,module,exports){
 /**
  * directive 定义
  * @ngInject
  */
-function BaiduMapDirective(baiduMapApi) {
+function BaiduMapDirective($q, baiduMapApi) {
+
   return {
-    require: 'baiduMap',
+    transclude: true,
+    template: [
+      '<div></div>',
+      '<div ng-transclude></div>'
+    ].join(''),
     scope: {
       center: '='
     },
-    link: link,
-    controller: controller
+    link: link
   };
 
-  function link(scope, element, attrs, controller) {
-    element.css('display', 'block');
+  function link(scope, element, attrs) {
+    var container = element.children();
+    angular.element(container[1]).css('display', 'none');
+    angular.element(container[0]).css({
+      'min-height': '100px',
+      'min-width': '100px',
+      height: '100%',
+      width: '100%'
+    });
+
+    scope.$on('mapready', initialize);
+
     baiduMapApi.then(function(BMap) {
-      var map = new BMap.Map(element[0]);
-      controller.init(map);
-    });
-  }
-}
-BaiduMapDirective.$inject = ["baiduMapApi"];
-
-/**
- * 用于控制 directive 的内部 controller
- * @ngInject
- */
-function controller($scope, $q) {
-  var vm = this;
-
-  this.init = init;
-
-  return;
-
-  function init(map) {
-
-    var center = $scope.center;
-
-    map.centerAndZoom(new BMap.Point(center.lng, center.lat), 11);
-
-    map.addEventListener('dragend', function(type, target) {
-      var center = map.getCenter();
-      $scope.center = center;
-      $scope.$apply();
+      var map = new BMap.Map(container[0]);
+      var center = scope.center;
+      var point = new BMap.Point(center.lng, center.lat);
+      map.centerAndZoom(point, 11);
+      scope.$broadcast('mapready', map);
     });
 
-    $scope.$watch('center', function(newVal, oldVal) {
-      var point = new BMap.Point(newVal.lng, newVal.lat);
-      map.panTo(point);
-    }, true);
+    return;
+
+    function initialize(e, map) {
+      map.addEventListener('dragend', function(type, target) {
+        var center = map.getCenter();
+        scope.center = center;
+        scope.$apply();
+      });
+
+      scope.$watch('center', function(newVal, oldVal) {
+        var point = new BMap.Point(newVal.lng, newVal.lat);
+        map.panTo(point);
+      }, true);
+    }
   }
+
 }
-controller.$inject = ["$scope", "$q"];
+BaiduMapDirective.$inject = ["$q", "baiduMapApi"];
 
 module.exports = BaiduMapDirective;
 
 },{}],3:[function(require,module,exports){
+function MarkerDirective() {
+
+  return {
+    scope: {
+      latlng: '='
+    },
+    link: link
+  };
+
+  function link(scope, element) {
+    scope.$on('mapready', initialize);
+    return;
+
+    function initialize(e, map) {
+      console.log('put marker');
+      var lng = scope.latlng.lng;
+      var lat = scope.latlng.lat;
+      var point = new BMap.Point(lng, lat);
+      var marker = new BMap.Marker(point);
+      var infoWindow = new BMap.InfoWindow(element.html());
+      map.addOverlay(marker);
+
+      marker.addEventListener('click', function() {
+        this.openInfoWindow(infoWindow);
+      });
+    }
+  }
+
+}
+
+module.exports = MarkerDirective;
+
+},{}],4:[function(require,module,exports){
 /**
  * 用于管理百度地图 API 脚本
+ *
  * @ngInject
  */
-function baiduMapScriptLoader($q) {
+function ScriptLoaderFactory($q) {
 
   var mapApi = $q.defer();
   var callbackName = randomCallbackName();
@@ -127,7 +165,7 @@ function baiduMapScriptLoader($q) {
     delete window[callbackName];
   }
 }
-baiduMapScriptLoader.$inject = ["$q"];
+ScriptLoaderFactory.$inject = ["$q"];
 
 /**
  * 生成随机的 callback 方法名
@@ -137,12 +175,13 @@ function randomCallbackName() {
   return name;
 }
 
-module.exports = baiduMapScriptLoader;
+module.exports = ScriptLoaderFactory;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 angular.module('ngBaiduMap', [])
   .factory('baiduMapScriptLoader', require('./src/script-loader-factory'))
   .provider('baiduMapApi', require('./src/api-provider'))
-  .directive('baiduMap', require('./src/baidu-map-directive'));
+  .directive('baiduMap', require('./src/baidu-map-directive'))
+  .directive('marker', require('./src/marker-directive'));
 
-},{"./src/api-provider":1,"./src/baidu-map-directive":2,"./src/script-loader-factory":3}]},{},[4]);
+},{"./src/api-provider":1,"./src/baidu-map-directive":2,"./src/marker-directive":3,"./src/script-loader-factory":4}]},{},[5]);

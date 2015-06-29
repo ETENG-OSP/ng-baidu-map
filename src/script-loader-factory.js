@@ -1,8 +1,9 @@
 /**
  * 用于管理百度地图 API 脚本
+ *
  * @ngInject
  */
-function baiduMapScriptLoader($q) {
+function ScriptLoaderFactory($q) {
 
   var mapApi = $q.defer();
   var callbackName = randomCallbackName();
@@ -43,4 +44,4 @@ function randomCallbackName() {
   return name;
 }
 
-module.exports = baiduMapScriptLoader;
+module.exports = ScriptLoaderFactory;

@@ -1,16 +1,16 @@
-/*
+/**
  * 用于配置加载地图的方法
  */
-function baiduMapApiProvider() {
+function ApiProvider() {
 
-  this.$get = $get;
-  this.accessKey = accessKey;
-  this.version = version;
-  this.options = {
-    version: '2.0'
+  return {
+    $get: $get,
+    accessKey: accessKey,
+    version: version,
+    options: {
+      version: '2.0'
+    }
   };
-
-  return this;
 
   function accessKey(_accessKey) {
     this.options.accessKey = _accessKey;
@@ -22,10 +22,12 @@ function baiduMapApiProvider() {
     return this;
   }
 
-  // @ngInject
+  /**
+   * @ngInject
+   */
   function $get(baiduMapScriptLoader) {
     return baiduMapScriptLoader(this.options.version, this.options.accessKey);
   }
 }
 
-module.exports = baiduMapApiProvider;
+module.exports = ApiProvider;
