@@ -5,9 +5,10 @@
   "main": "angular-baidu-map.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run inject && npm run minify",
-    "inject": "ng-annotate -a angular-baidu-map.js >> angular-baidu-map.dist.js",
-    "minify": "uglifyjs angular-baidu-map.dist.js >> angular-baidu-map.min.js"
+    "pack": "browserify index.js > dist/baidu-map.js",
+    "annotate": "ng-annotate -a dist/baidu-map.js > dist/baidu-map.annotated.js",
+    "minify": "uglifyjs dist/baidu-map.annotated.js -c -m > dist/baidu-map.min.js",
+    "build": "npm run pack && npm run annotate && npm run minify"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/gengen1988/ng-baidu-map/issues"
   },
-  "homepage": "https://github.com/gengen1988/ng-baidu-map"
+  "homepage": "https://github.com/gengen1988/ng-baidu-map",
+  "dependencies": {
+    "angular": "^1.4.1"
+  }
 }
