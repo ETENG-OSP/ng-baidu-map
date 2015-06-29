@@ -1,6 +1,6 @@
 {
   "name": "baidumap",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "百度地图 for AngularJS",
   "main": "angular-baidu-map.js",
   "scripts": {
@@ -8,13 +8,14 @@
     "pack": "browserify index.js > dist/baidu-map.js",
     "annotate": "ng-annotate -a dist/baidu-map.js > dist/baidu-map.annotated.js",
     "minify": "uglifyjs dist/baidu-map.annotated.js -c -m > dist/baidu-map.min.js",
-    "build": "npm run pack && npm run annotate && npm run minify"
+    "build": "npm run pack && npm run annotate && npm run minify && npm run bump",
+    "bump": "npm version bump && bower version bump"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/gengen1988/ng-baidu-map.git"
   },
-  "author": "",
+  "author": "GG",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gengen1988/ng-baidu-map/issues"
