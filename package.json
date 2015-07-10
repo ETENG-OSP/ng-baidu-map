@@ -1,6 +1,6 @@
 {
   "name": "baidumap",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "百度地图 for AngularJS",
   "main": "angular-baidu-map.js",
   "scripts": {
