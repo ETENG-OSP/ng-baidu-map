@@ -121,6 +121,11 @@ function MarkerDirective() {
       marker.addEventListener('click', function() {
         this.openInfoWindow(infoWindow);
       });
+
+      scope.$watch('latlng', function(newVal, oldVal) {
+        var point = new BMap.Point(newVal.lng, newVal.lat);
+        marker.setPosition(point);
+      }, true);
     }
   }
 

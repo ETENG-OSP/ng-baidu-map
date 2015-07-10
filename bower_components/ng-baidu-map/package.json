@@ -1,11 +1,11 @@
 {
   "name": "baidumap",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "百度地图 for AngularJS",
   "main": "angular-baidu-map.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pack": "browserify index.js > dist/angular-baidu-map.js",
+    "pack": "browserify index.js -o dist/angular-baidu-map.js",
     "annotate": "ng-annotate -a dist/angular-baidu-map.js > dist/angular-baidu-map.annotated.js",
     "minify": "uglifyjs dist/angular-baidu-map.annotated.js -c -m > dist/angular-baidu-map.min.js",
     "build": "npm run pack && npm run annotate && npm run minify",

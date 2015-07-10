@@ -18,7 +18,7 @@ $ bower install ng-baidu-map --save
 
 在自己的模块中加入依赖
 
-```javascript
+```js
 angular.module('app', ['ngBaiduMap']);
 ```
 
@@ -30,13 +30,15 @@ angular.module('app', ['ngBaiduMap']);
 version 默认是 2.0
 
 例子：
-```javascript
+```js
 angular.module('app', ['ngBaiduMap']).config(config);
 
 function config(baiduMapApiProvider) {
   baiduMapApiProvider.version('2.0').accessKey('您的 ak');
 }
 ```
+
+### baidu-map
 
 使用 `<baidu-map></baidu-map>` 加入地图
 
@@ -46,8 +48,25 @@ function config(baiduMapApiProvider) {
 
 例子：
 
-```
+```html
 <div ng-init="point = { lat: 121.491, lng: 31.233 }">
   <baidu-map center="point"></baidu-map>
+</div>
+```
+
+### marker
+
+使用 `<marker></marker>` 加入标注。元素内部的 html 是点击标注后显示的 InfoWindow 的内容。
+
+参数：
+
+* __latlng__: 标注的坐标
+
+例子：
+```html
+<div ng-init="point = { lat: 121.491, lng: 31.233 }">
+  <baidu-map center="point">
+    <marker latlng="point">点击后显示的内容</marker>
+  </baidu-map>
 </div>
 ```
