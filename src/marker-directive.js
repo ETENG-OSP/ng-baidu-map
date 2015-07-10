@@ -1,4 +1,4 @@
-function MarkerDirective() {
+function MarkerDirective($compile) {
 
   return {
     scope: {
@@ -12,12 +12,13 @@ function MarkerDirective() {
     return;
 
     function initialize(e, map) {
-      console.log('put marker');
+      // console.log('put marker');
       var lng = scope.latlng.lng;
       var lat = scope.latlng.lat;
       var point = new BMap.Point(lng, lat);
       var marker = new BMap.Marker(point);
-      var infoWindow = new BMap.InfoWindow(element.html());
+
+      var infoWindow = new BMap.InfoWindow(element[0]);
       map.addOverlay(marker);
 
       marker.addEventListener('click', function() {
