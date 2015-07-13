@@ -37,6 +37,7 @@ module.exports = ApiProvider;
 },{}],2:[function(require,module,exports){
 /**
  * directive 定义
+ *
  * @ngInject
  */
 function BaiduMapDirective($q, baiduMapApi) {
@@ -96,7 +97,7 @@ BaiduMapDirective.$inject = ["$q", "baiduMapApi"];
 module.exports = BaiduMapDirective;
 
 },{}],3:[function(require,module,exports){
-function MarkerDirective($compile) {
+function MarkerDirective() {
 
   return {
     scope: {

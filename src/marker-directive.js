@@ -1,4 +1,4 @@
-function MarkerDirective($compile) {
+function MarkerDirective() {
 
   return {
     scope: {

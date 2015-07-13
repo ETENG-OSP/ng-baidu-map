@@ -1,5 +1,6 @@
 /**
  * directive 定义
+ *
  * @ngInject
  */
 function BaiduMapDirective($q, baiduMapApi) {
