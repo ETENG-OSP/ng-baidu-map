@@ -70,3 +70,35 @@ function config(baiduMapApiProvider) {
   </baidu-map>
 </div>
 ```
+
+### baiduMapApi
+
+如果需要使用 `BMap`，可以注入 `baiduMapApi`，在 then 里拿到 `Bmap`。这个模块会解决加载的时序问题。
+
+例子：
+
+```js
+// 定义自己的服务
+yourModule.factory('BaiduMapService', function($q, baiduMapApi) {
+  return {
+    getLocalCity: function() {
+      return baiduMapApi.then(function(BMap) {
+        var localcity = new BMap.LocalCity();
+        return $q(function(resolve, reject) {
+          localcity.get(function(r) {
+            resolve(r);
+          });
+        });
+      });
+    }
+  };
+});
+
+// 使用自己的服务
+yourModule.controller('TestController', function(BaiduMapService) {
+  var self = this;
+  BaiduMapService.getLocalCity().then(function(r) {
+    self.r = r;
+  });
+});
+```
